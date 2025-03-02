@@ -6,7 +6,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "https://rishabh0059.github.io", // Allow GitHub Pages frontend
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization"
+}));
+
+// Handle preflight requests
+app.options("*", cors());
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, {
